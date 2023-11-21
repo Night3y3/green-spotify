@@ -2,6 +2,7 @@
 
 import AuthModel from "@/components/AuthModel";
 import Model from "@/components/Model";
+import UploadModel from "@/components/UploadModel";
 
 import { useEffect, useState } from "react";
 
@@ -17,7 +18,9 @@ const ModelProvider = () => {
 
     return (
         <>
+            <UploadModel />
             <AuthModel />
+
         </>
     );
 }
