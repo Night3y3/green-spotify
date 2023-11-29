@@ -15,7 +15,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
     data,
     onClick
 }) => {
-    const imageUrl = useLoadImage(data);
+    const imageUrl = useLoadImage(data);   //It gets a url from the server and returns it to the client using the useLoadImage hook
 
     const handleClick = () => {
         if (onClick) {
