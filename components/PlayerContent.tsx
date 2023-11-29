@@ -6,10 +6,11 @@ import LikedButton from "./LikedButton";
 import Slider from "./Slider";
 import usePlayer from "@/hooks/usePlayer";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 import { HiSpeakerXMark, HiSpeakerWave } from "react-icons/hi2";
+import useSound from "use-sound";
 
 interface PlayerContentProps {
     song: Song;
@@ -20,10 +21,12 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
     song,
     songUrl
 }) => {
+
     const player = usePlayer();
     const [volume, setVolume] = useState(1);
     const [isPlaying, setIsPlaying] = useState(false);
 
+    // Going to the previous song
     const onPlayPrevious = () => {
         if (player.ids.length === 0) {
             return;
@@ -39,6 +42,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
         player.setId(previousSongIndex);
     }
 
+    // Goind to the next song
     const onPlayNext = () => {
         if (player.ids.length === 0) {
             return;
@@ -54,6 +58,47 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
         player.setId(nextSongIndex);
     }
 
+    // Play and Pause the song with sound
+    const [play, { pause, sound }] = useSound(
+        songUrl,
+        {
+            volume,
+            onplay: () => setIsPlaying(true),
+            onended: () => {
+                setIsPlaying(false);
+                onPlayNext();
+            },
+            onpause: () => setIsPlaying(false),
+            format: ['mp3']
+        }
+    );
+
+    // It will play it from the start
+    useEffect(() => {
+        sound?.play();
+
+        return () => {
+            sound?.unload();
+        }
+    }, [sound]);
+
+    // It will pause or play the song
+    const handlePlay = () => {
+        if (!isPlaying) {
+            play();
+        } else {
+            pause();
+        }
+    }
+
+    const toggleMute = () => {
+        if (volume === 0) {
+            setVolume(1);
+        } else {
+            setVolume(0);
+        }
+    }
+
     const Icon = isPlaying ? BsPauseFill : BsPlayFill;
     const VolumeIcon = volume === 0 ? HiSpeakerXMark : HiSpeakerWave;
     return (
@@ -65,7 +110,10 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
                 </div>
             </div>
             <div className=" flex md:hidden col-auto w-full justify-end items-center">
-                <div className="h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer">
+                <div
+                    onClick={handlePlay}
+                    className="h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer"
+                >
                     <Icon size={30} className="text-black" />
                 </div>
             </div>
@@ -76,7 +124,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
                     onClick={onPlayPrevious}
                 />
                 <div
-                    onClick={() => { }}
+                    onClick={handlePlay}
                     className="flex items-center justify-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer hover:bg-neutral-200 transition"
                 >
                     <Icon size={30} className="text-black" />
@@ -91,11 +139,14 @@ const PlayerContent: React.FC<PlayerContentProps> = ({
             <div className=" hidden md:flex w-full justify-end pr-2">
                 <div className=" flex items-center gap-x-2 w-[120px]">
                     <VolumeIcon
-                        onClick={() => { }}
+                        onClick={toggleMute}
                         className="cursor-pointer"
                         size={34}
                     />
-                    <Slider />
+                    <Slider
+                        value={volume}
+                        onChange={(value) => setVolume(value)}
+                    />
                 </div>
             </div>
         </div>
