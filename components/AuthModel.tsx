@@ -11,7 +11,7 @@ import { useEffect } from "react";
 
 import useAuthModal from "@/hooks/useAuthModal";
 
-import Model from "./Model";
+import Model from "./ui/Model";
 import { on } from "events";
 
 const AuthModel = () => {

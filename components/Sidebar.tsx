@@ -6,7 +6,7 @@ import { HiHome } from 'react-icons/hi';
 import { BiSearch } from 'react-icons/bi';
 import { twMerge } from "tailwind-merge";
 
-import Box from "./Box";
+import Box from "./ui/Box";
 import SidebarItem from "./SidebarItem";
 import Library from "./Library";
 import { Song } from "@/types";

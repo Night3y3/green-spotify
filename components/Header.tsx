@@ -8,7 +8,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { FaUserAlt } from "react-icons/fa";
 import toast from "react-hot-toast/headless";
 
-import Button from "./Button";
+import Button from "./ui/Button";
 
 import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";

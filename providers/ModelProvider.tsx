@@ -1,7 +1,7 @@
 "use client";
 
 import AuthModel from "@/components/AuthModel";
-import Model from "@/components/Model";
+import Model from "@/components/ui/Model";
 import UploadModel from "@/components/UploadModel";
 
 import { useEffect, useState } from "react";

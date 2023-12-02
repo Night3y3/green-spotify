@@ -1,7 +1,7 @@
 "use client";
 
 import useDebounce from "@/hooks/useDebounce";
-import Input from "./Input";
+import Input from "./ui/Input";
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

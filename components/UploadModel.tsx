@@ -8,9 +8,9 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
 
 import useUploadModal from "@/hooks/useUploadModel";
-import Model from "./Model";
-import Input from "./Input";
-import Button from "./Button";
+import Model from "./ui/Model";
+import Input from "./ui/Input";
+import Button from "./ui/Button";
 import { useUser } from "@/hooks/useUser";
 
 const UploadModel = () => {
