@@ -1,6 +1,7 @@
 "use client";
 
 import useLoadImage from "@/hooks/useLoadImage";
+import usePlayer from "@/hooks/usePlayer";
 import { Song } from "@/types";
 
 import Image from "next/image";
@@ -15,6 +16,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
     data,
     onClick
 }) => {
+    const player = usePlayer(); //It gets the player from the server and returns it to the client using the usePlayer hook
     const imageUrl = useLoadImage(data);   //It gets a url from the server and returns it to the client using the useLoadImage hook
 
     const handleClick = () => {
@@ -22,7 +24,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
             return onClick(data.id);
         }
 
-        //TODO: Default turn on Player
+        return player.setId(data.id);
     }
     return (
         <div
