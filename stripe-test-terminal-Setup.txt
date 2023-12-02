@@ -1,0 +1,15 @@
+Step 1 : Extracting stripe_X.X.X_windows_x86_64.zip
+
+Step 2 : Add the stripe.exe folder to the system path
+
+Step 3 : Open 3 Seperate terminal in the project folder
+
+Step 4 : Terminal 1 :- npm run dev
+         Terminal 2 :- stripe login
+
+Step 5 : After login in :- Terminal 2 :- stripe listen --forward-to localhost:3000/api/webhooks
+
+Step 6 : Will get a STRIPE_WEBHOOK_SECRET which should be pasted at .env.local
+
+Step 7 : To check the working :- 
+        Terminal 3 :- stripe trigger payment_intent.succeeded

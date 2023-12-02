@@ -1,12 +1,19 @@
 "use client";
 
 import AuthModel from "@/components/AuthModel";
-import Model from "@/components/ui/Model";
+import SubscribeModel from "@/components/SubscribeModel";
 import UploadModel from "@/components/UploadModel";
+import { ProductWithPrice } from "@/types";
 
 import { useEffect, useState } from "react";
 
-const ModelProvider = () => {
+interface ModelProviderProps {
+    products: ProductWithPrice[];
+}
+
+const ModelProvider: React.FC<ModelProviderProps> = ({
+    products
+}) => {
     const [isMounted, setIsMounted] = useState(false);
 
     // A clever way to prevent the model from rendering on the server side and causing errors
@@ -20,7 +27,7 @@ const ModelProvider = () => {
         <>
             <UploadModel />
             <AuthModel />
-
+            <SubscribeModel products={products} />
         </>
     );
 }
